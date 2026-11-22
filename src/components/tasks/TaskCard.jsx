@@ -1,4 +1,4 @@
-import { CalendarDays, Check, Circle, Flag, MoreHorizontal } from 'lucide-react'
+import { CalendarDays, Check, MoreHorizontal, Square } from 'lucide-react'
 
 function TaskCard({ task }) {
   return (
@@ -16,7 +16,7 @@ function TaskCard({ task }) {
           {task.completed ? (
             <Check aria-hidden="true" size={17} />
           ) : (
-            <Circle aria-hidden="true" size={19} />
+            <Square aria-hidden="true" size={16} />
           )}
         </span>
         <div className="task-card__text">
@@ -27,7 +27,6 @@ function TaskCard({ task }) {
       <div className="task-card__meta">
         <span className="task-category">{task.category}</span>
         <span className={`task-priority task-priority--${task.priority.toLowerCase()}`}>
-          <Flag aria-hidden="true" size={13} />
           {task.priority}
         </span>
         <span className="task-due-date">

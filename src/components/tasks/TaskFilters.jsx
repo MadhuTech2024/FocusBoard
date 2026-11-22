@@ -1,7 +1,7 @@
 import { Search } from 'lucide-react'
 
 const statusFilters = [
-  { label: 'All tasks', count: '12', value: 'all' },
+  { label: 'All tasks', mobileLabel: 'All', value: 'all' },
   { label: 'In progress', value: 'in-progress' },
   { label: 'Completed', value: 'completed' },
 ]
@@ -13,6 +13,7 @@ function TaskFilters({
   onSearchChange,
   priority = 'all',
   onPriorityChange,
+  totalCount = 0,
 }) {
   return (
     <div className="task-filters">
@@ -21,7 +22,7 @@ function TaskFilters({
         role="group"
         aria-label="Task status filters"
       >
-        {statusFilters.map(({ label, count, value }) => (
+        {statusFilters.map(({ label, mobileLabel, value }) => (
           <button
             aria-pressed={activeFilter === value}
             className={activeFilter === value ? 'is-active' : undefined}
@@ -29,8 +30,13 @@ function TaskFilters({
             onClick={() => onFilterChange?.(value)}
             type="button"
           >
-            <span>{label}</span>
-            {count && <span className="task-filters__count">{count}</span>}
+            <span className="task-filters__label--desktop">{label}</span>
+            {mobileLabel && (
+              <span className="task-filters__label--mobile">{mobileLabel}</span>
+            )}
+            {value === 'all' && (
+              <span className="task-filters__count">{totalCount}</span>
+            )}
           </button>
         ))}
       </div>
@@ -38,8 +44,18 @@ function TaskFilters({
         <Search aria-hidden="true" size={17} />
         <span className="sr-only">Find a task</span>
         <input
+          aria-label="Find a task"
+          className="task-filters__input--desktop"
           onChange={(event) => onSearchChange?.(event.target.value)}
           placeholder="Find a task..."
+          type="search"
+          value={searchQuery}
+        />
+        <input
+          aria-label="Search tasks"
+          className="task-filters__input--mobile"
+          onChange={(event) => onSearchChange?.(event.target.value)}
+          placeholder="Search tasks..."
           type="search"
           value={searchQuery}
         />

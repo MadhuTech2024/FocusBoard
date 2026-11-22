@@ -1,6 +1,7 @@
 function StatsCards({ stats = [] }) {
   return (
     <section className="stats-grid" aria-label="Dashboard statistics">
+      <h2 className="stats-grid__heading">Overview</h2>
       {stats.map(({ label, value, description, icon: Icon }) => (
         <article className="stat-card" key={label}>
           {Icon && (

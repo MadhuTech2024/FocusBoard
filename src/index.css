@@ -11,8 +11,8 @@
   font-weight: 400;
   color-scheme: light;
 
-  --color-primary: #0d99ff;
-  --color-primary-hover: #0785e4;
+  --color-primary: #6555f5;
+  --color-primary-hover: #5848e8;
   --color-navy: #17243b;
   --color-muted: #748198;
   --color-background: #f5f7fb;
@@ -49,7 +49,7 @@ input {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-  outline: 3px solid rgb(13 153 255 / 35%);
+  outline: 3px solid rgb(101 85 245 / 35%);
   outline-offset: 3px;
 }
 
@@ -59,5 +59,5 @@ button {
 
 ::selection {
   color: var(--color-navy);
-  background: rgb(13 153 255 / 18%);
+  background: rgb(101 85 245 / 18%);
 }

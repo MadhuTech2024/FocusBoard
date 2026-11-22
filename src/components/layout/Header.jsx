@@ -1,8 +1,10 @@
-import { ChevronDown, UserRound } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
+import Brand from '../common/Brand.jsx'
 
 function Header() {
   return (
     <header className="topbar">
+      <Brand className="topbar__brand" />
       <nav className="breadcrumb" aria-label="Breadcrumb">
         <ol>
           <li>
@@ -12,8 +14,8 @@ function Header() {
         </ol>
       </nav>
       <div className="profile-area" role="group" aria-label="User profile">
-        <span className="profile-area__avatar">
-          <UserRound aria-hidden="true" size={18} />
+        <span className="profile-area__avatar" aria-hidden="true">
+          JD
         </span>
         <ChevronDown
           className="profile-area__chevron"

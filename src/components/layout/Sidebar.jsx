@@ -4,6 +4,7 @@ import {
   LayoutGrid,
   List,
 } from 'lucide-react'
+import Brand from '../common/Brand.jsx'
 
 const navigationItems = [
   { id: 'overview', label: 'Overview', href: '#overview', icon: LayoutGrid },
@@ -15,15 +16,7 @@ const navigationItems = [
 function Sidebar({ activeItem = 'overview', onNavigate }) {
   return (
     <aside className="sidebar">
-      <a className="sidebar__brand" href="#overview" aria-label="FocusBoard overview">
-        <span className="sidebar__brand-mark" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <span />
-        </span>
-        <span>FocusBoard</span>
-      </a>
+      <Brand className="sidebar__brand" />
       <p className="sidebar__section-label">WORKSPACE</p>
       <nav className="sidebar__nav" aria-label="Primary navigation">
         {navigationItems.map(({ id, label, href, icon: Icon }) => (

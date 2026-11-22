@@ -1,5 +1,5 @@
 
-import { ArrowRight, CircleCheck, Clock3, ListTodo, Plus } from 'lucide-react'
+import { CircleCheck, Clock3, ListTodo, Plus } from 'lucide-react'
 import { useState } from 'react'
 import Header from './components/layout/Header.jsx'
 import MobileNav from './components/layout/MobileNav.jsx'
@@ -8,43 +8,39 @@ import FocusCarousel from './components/dashboard/FocusCarousel.jsx'
 import StatsCards from './components/dashboard/StatsCards.jsx'
 import TaskFilters from './components/tasks/TaskFilters.jsx'
 import TaskList from './components/tasks/TaskList.jsx'
-import initialTasks from './data/initialTasks.js'
-import { filterTasks } from './utils/taskHelpers.js'
+import useTasks from './hooks/useTasks.js'
+import { filterTasks, getTaskStats } from './utils/taskHelpers.js'
 import './App.css'
 
 const focusNotes = [
   {
     title: 'Make today count.',
+    mobileTitle: 'Make today count',
     subtitle: 'A little focus goes a long way.',
+    status: 'next',
+    statusLabel: 'NEXT UP',
+    taskTitle: 'Design landing page',
+    progress: 62,
   },
   {
-    title: 'One thing at a time.',
-    subtitle: 'Give your next priority your full attention.',
+    title: 'Small steps, big progress.',
+    mobileTitle: 'Small steps, big progress',
+    subtitle: 'Keep your priorities in view.',
+    mobileSubtitle: 'Keep your priorities in view.',
+    status: 'in-progress',
+    statusLabel: 'IN PROGRESS',
+    taskTitle: 'Fix mobile navigation',
+    progress: 65,
   },
   {
-    title: 'Make space to focus.',
-    subtitle: 'Small, steady steps add up to meaningful progress.',
-  },
-]
-
-const referenceStats = [
-  {
-    label: 'Total tasks',
-    value: 12,
-    description: 'Across all projects',
-    icon: ListTodo,
-  },
-  {
-    label: 'In progress',
-    value: 5,
-    description: 'Keep the momentum',
-    icon: Clock3,
-  },
-  {
-    label: 'Completed',
-    value: 7,
-    description: 'Great work this week',
-    icon: CircleCheck,
+    title: 'Celebrate the wins.',
+    mobileTitle: 'Celebrate the wins',
+    subtitle: 'Every completed task moves you forward.',
+    mobileSubtitle: 'Every completed task moves you forward.',
+    status: 'completed',
+    statusLabel: 'COMPLETED',
+    taskTitle: 'Onboarding copy',
+    progress: 100,
   },
 ]
 
@@ -52,9 +48,31 @@ function App({ onCreateTask }) {
   const [activeFilter, setActiveFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [priority, setPriority] = useState('all')
+  const { tasks } = useTasks()
+  const taskStats = getTaskStats(tasks)
+  const stats = [
+    {
+      label: 'Total tasks',
+      value: taskStats.total,
+      description: 'Across all projects',
+      icon: ListTodo,
+    },
+    {
+      label: 'In progress',
+      value: taskStats.active,
+      description: 'Keep the momentum',
+      icon: Clock3,
+    },
+    {
+      label: 'Completed',
+      value: taskStats.completed,
+      description: 'Great work this week',
+      icon: CircleCheck,
+    },
+  ]
 
   const filteredTasks = filterTasks(
-    initialTasks,
+    tasks,
     activeFilter === 'in-progress' ? 'active' : activeFilter,
   ).filter((task) => {
     const query = searchQuery.trim().toLowerCase()
@@ -79,11 +97,13 @@ function App({ onCreateTask }) {
             <section className="dashboard-intro" aria-labelledby="dashboard-title">
               <div className="dashboard-intro__copy">
                 <h1 className="dashboard-intro__title" id="dashboard-title">
-                  Your work, in focus.
+                  Your work,<br className="mobile-only-break" /> in focus.
                 </h1>
-                <p className="dashboard-intro__subtitle">
-                  Bring your priorities together and make room for meaningful
-                  progress.
+                <p className="dashboard-intro__subtitle dashboard-intro__subtitle--desktop">
+                  Plan your day, stay organized, and celebrate small wins.
+                </p>
+                <p className="dashboard-intro__subtitle dashboard-intro__subtitle--mobile">
+                  Stay organized and keep moving forward.
                 </p>
               </div>
               <button
@@ -91,14 +111,13 @@ function App({ onCreateTask }) {
                 type="button"
                 onClick={onCreateTask}
               >
-                <Plus aria-hidden="true" size={18} />
-                <span>New Task</span>
+                New task
               </button>
             </section>
 
-            <FocusCarousel items={focusNotes} previewTask={initialTasks[0]} />
+            <FocusCarousel items={focusNotes} taskCount={taskStats.total} />
 
-            <StatsCards stats={referenceStats} />
+            <StatsCards stats={stats} />
 
             <section
               className="task-section"
@@ -107,8 +126,13 @@ function App({ onCreateTask }) {
             >
               <div className="task-section__heading">
                 <div>
-                  <h2 id="my-tasks-title">My Tasks</h2>
-                  <p>Keep track of what needs your attention.</p>
+                  <h2 id="my-tasks-title">My tasks</h2>
+                  <p className="task-section__subtitle--desktop">
+                    Manage and track everything in one place.
+                  </p>
+                  <p className="task-section__subtitle--mobile">
+                    Your priorities for this week
+                  </p>
                 </div>
                 <button
                   className="task-section__view-all"
@@ -119,8 +143,15 @@ function App({ onCreateTask }) {
                   }}
                   type="button"
                 >
-                  View all Tasks
-                  <ArrowRight aria-hidden="true" size={14} />
+                  View all tasks
+                </button>
+                <button
+                  aria-label="Create a task"
+                  className="task-section__create"
+                  onClick={onCreateTask}
+                  type="button"
+                >
+                  <Plus aria-hidden="true" size={22} />
                 </button>
               </div>
               <TaskFilters
@@ -130,6 +161,7 @@ function App({ onCreateTask }) {
                 onSearchChange={setSearchQuery}
                 priority={priority}
                 onPriorityChange={setPriority}
+                totalCount={taskStats.total}
               />
               <TaskList tasks={filteredTasks} />
             </section>
