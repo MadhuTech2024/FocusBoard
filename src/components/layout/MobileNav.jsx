@@ -4,28 +4,30 @@ import {
   LayoutDashboard,
   Settings,
 } from 'lucide-react'
+import { NavLink } from 'react-router-dom'
 
 const navigationItems = [
-  { id: 'overview', label: 'Overview', href: '#overview', icon: LayoutDashboard },
-  { id: 'tasks', label: 'Tasks', href: '#tasks', icon: CheckSquare },
-  { id: 'calendar', label: 'Calendar', href: '#calendar', icon: CalendarDays },
-  { id: 'settings', label: 'Settings', href: '#settings', icon: Settings },
+  { id: 'overview', label: 'Overview', to: '/', icon: LayoutDashboard },
+  { id: 'tasks', label: 'Tasks', to: '/tasks', icon: CheckSquare },
+  { id: 'calendar', label: 'Calendar', to: '/calendar', icon: CalendarDays },
+  { id: 'settings', label: 'Settings', to: '/settings', icon: Settings },
 ]
 
-function MobileNav({ activeItem = 'overview', onNavigate }) {
+function MobileNav() {
   return (
     <nav className="mobile-nav" aria-label="Mobile navigation">
-      {navigationItems.map(({ id, label, href, icon: Icon }) => (
-        <a
-          aria-current={activeItem === id ? 'page' : undefined}
-          className="mobile-nav__link"
-          href={href}
+      {navigationItems.map(({ id, label, to, icon: Icon }) => (
+        <NavLink
+          className={({ isActive }) =>
+          isActive ? 'mobile-nav__link is-active' : 'mobile-nav__link'
+          }
+          end
           key={id}
-          onClick={() => onNavigate?.(id)}
+          to={to}
         >
           <Icon aria-hidden="true" size={19} strokeWidth={1.9} />
           <span>{label}</span>
-        </a>
+        </NavLink>
       ))}
     </nav>
   )

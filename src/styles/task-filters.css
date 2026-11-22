@@ -10,7 +10,7 @@
   margin-bottom: clamp(15px, calc(0.37vw + 11.7px), 17px);
 }
 
-.task-section__heading h2 {
+.task-section__heading :is(h1, h2) {
   margin: 0;
   color: var(--color-navy);
   font-size: clamp(15px, 1.67vw, 24px);
@@ -45,6 +45,10 @@
   font-size: clamp(8px, 0.83vw, 12px);
   font-weight: var(--font-weight-semibold);
   white-space: nowrap;
+}
+
+.task-section__new-task {
+  gap: 8px;
 }
 
 .task-section__create {

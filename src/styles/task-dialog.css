@@ -177,13 +177,19 @@
 }
 
 .task-dialog--task-form {
+  position: fixed;
+  inset: auto;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, -50%);
   display: flex;
-  width: min(526px, calc(100vw - 8px));
-  height: min(628px, calc(100dvh - 4px));
+  width: min(526px, calc(100vw - 32px));
+  height: min(628px, calc(100dvh - 32px));
   max-width: none;
-  max-height: min(760px, calc(100dvh - 4px));
+  max-height: calc(100dvh - 32px);
   flex-direction: column;
-  overflow: auto;
+  overflow: hidden;
   border-radius: 20px;
   box-shadow: var(--shadow-dialog-form);
 }
@@ -227,8 +233,19 @@
   min-height: 0;
   flex: 1 1 auto;
   flex-direction: column;
+  overflow: hidden;
+  padding: 0 36px 20px;
+}
+
+.task-dialog--task-form .task-dialog__body {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
   gap: 26px;
-  padding: 21px 36px 20px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-top: 21px;
 }
 
 .task-dialog--task-form .task-dialog__field {
@@ -487,8 +504,14 @@
   }
 
   .task-dialog--task-form .task-dialog__form {
+    padding-right: 24px;
+    padding-bottom: 20px;
+    padding-left: 24px;
+  }
+
+  .task-dialog--task-form .task-dialog__body {
     gap: 18px;
-    padding: 18px 24px 20px;
+    padding-top: 18px;
   }
 
   .task-dialog--task-form .task-dialog__actions {
@@ -504,9 +527,12 @@
   }
 
   .task-dialog--task-form .task-dialog__form {
-    gap: 16px;
     padding-right: 20px;
     padding-left: 20px;
+  }
+
+  .task-dialog--task-form .task-dialog__body {
+    gap: 16px;
   }
 
   .task-dialog__select-grid {

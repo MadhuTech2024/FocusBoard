@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import {
   AlertCircle,
   Database,
@@ -28,23 +28,13 @@ function SettingsPage({
   profile,
   profileError,
   onSaveProfile,
-  focusProfile,
-  onProfileFocusHandled,
   onPreferencesChange,
   onReplaceTasks,
   onResetTasks,
 }) {
   const fileInputRef = useRef(null)
-  const profileSectionRef = useRef(null)
   const [pendingAction, setPendingAction] = useState(null)
   const [feedback, setFeedback] = useState(null)
-
-  useEffect(() => {
-    if (focusProfile) {
-      profileSectionRef.current?.scrollIntoView({ block: 'start' })
-      onProfileFocusHandled?.()
-    }
-  }, [focusProfile, onProfileFocusHandled])
 
   function updatePreference(updates) {
     const saved = onPreferencesChange(updates)
@@ -154,7 +144,6 @@ function SettingsPage({
           aria-labelledby="profile-settings-title"
           className="settings-card"
           id="profile-settings"
-          ref={profileSectionRef}
         >
           <ProfileSettings
             onSaveProfile={onSaveProfile}

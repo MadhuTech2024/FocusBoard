@@ -1,4 +1,5 @@
 import { ChevronDown } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import Brand from '../common/Brand.jsx'
 import ProfileAvatar from '../common/ProfileAvatar.jsx'
 
@@ -7,6 +8,7 @@ const breadcrumbLabels = {
   tasks: 'My tasks',
   calendar: 'Calendar',
   settings: 'Settings',
+  profile: 'Profile',
 }
 
 function Header({
@@ -20,7 +22,7 @@ function Header({
       <nav className="breadcrumb" aria-label="Breadcrumb">
         <ol>
           <li>
-            <a href="#workspace">Workspace</a>
+            <Link to="/">Workspace</Link>
           </li>
           <li aria-current="page">{breadcrumbLabels[activeItem] ?? 'Overview'}</li>
         </ol>

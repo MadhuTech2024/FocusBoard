@@ -22,6 +22,7 @@ function TaskCard({ task, onEdit, onDelete, onStatusChange }) {
     const menu = event.currentTarget.closest('details')
     if (menu) {
       menu.open = false
+      menu.querySelector('summary')?.focus()
     }
   }
 

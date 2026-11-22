@@ -4,19 +4,19 @@ import {
   LayoutGrid,
   List,
 } from 'lucide-react'
+import { NavLink } from 'react-router-dom'
 import Brand from '../common/Brand.jsx'
 import ProfileAvatar from '../common/ProfileAvatar.jsx'
 
 const navigationItems = [
-  { id: 'overview', label: 'Overview', href: '#overview', icon: LayoutGrid },
-  { id: 'tasks', label: 'My tasks', href: '#tasks', icon: List },
-  { id: 'calendar', label: 'Calendar', href: '#calendar', icon: CalendarDays },
-  { id: 'settings', label: 'Settings', href: '#settings', icon: CircleDot },
+  { id: 'overview', label: 'Overview', to: '/', icon: LayoutGrid },
+  { id: 'tasks', label: 'My tasks', to: '/tasks', icon: List },
+  { id: 'calendar', label: 'Calendar', to: '/calendar', icon: CalendarDays },
+  { id: 'settings', label: 'Settings', to: '/settings', icon: CircleDot },
 ]
 
 function Sidebar({
   activeItem = 'overview',
-  onNavigate,
   onOpenProfile,
   profile,
 }) {
@@ -25,22 +25,24 @@ function Sidebar({
       <Brand className="sidebar__brand" />
       <p className="sidebar__section-label">WORKSPACE</p>
       <nav className="sidebar__nav" aria-label="Primary navigation">
-        {navigationItems.map(({ id, label, href, icon: Icon }) => (
-          <a
-            aria-current={activeItem === id ? 'page' : undefined}
-            className="sidebar__link"
-            href={href}
+        {navigationItems.map(({ id, label, to, icon: Icon }) => (
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? 'sidebar__link is-active' : 'sidebar__link'
+            }
+            end
             key={id}
-            onClick={() => onNavigate?.(id)}
+            to={to}
           >
             <Icon aria-hidden="true" size={16} strokeWidth={1.8} />
             <span>{label}</span>
-          </a>
+          </NavLink>
         ))}
       </nav>
       <button
         aria-label={`Open profile settings for ${profile.name}`}
-        className="sidebar__profile"
+        aria-current={activeItem === 'profile' ? 'page' : undefined}
+        className={`sidebar__profile${activeItem === 'profile' ? ' is-active' : ''}`}
         onClick={onOpenProfile}
         type="button"
       >

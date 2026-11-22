@@ -31,6 +31,7 @@ FocusBoard keeps task planning in one interface: manage a task list from the das
 ## Technology stack
 
 - React 19 with JavaScript and JSX
+- React Router for browser-based client-side routing
 - Vite 8
 - Custom CSS and CSS variables
 - React hooks
@@ -70,12 +71,14 @@ FocusBoard/
 │   │   │   └── Sidebar.jsx
 │   │   ├── settings/
 │   │   │   ├── ProfileSettings.jsx
+│   │   │   ├── ProfilePage.jsx
 │   │   │   └── SettingsPage.jsx
 │   │   └── tasks/
 │   │       ├── TaskCard.jsx
 │   │       ├── TaskFilters.jsx
 │   │       ├── TaskList.jsx
-│   │       └── TaskModal.jsx
+│   │       ├── TaskModal.jsx
+│   │       └── TaskSection.jsx
 │   ├── data/
 │   │   └── initialTasks.js
 │   ├── hooks/
@@ -116,6 +119,7 @@ FocusBoard/
 ├── package.json
 ├── README-vite-backup.md
 ├── README.md
+├── vercel.json
 └── vite.config.js
 ```
 
@@ -162,6 +166,16 @@ npm run preview
 ```
 
 ## Application usage
+
+Open a page using its clean path:
+
+| Page | Path |
+| --- | --- |
+| Dashboard | `/` |
+| Tasks | `/tasks` |
+| Calendar | `/calendar` |
+| Settings | `/settings` |
+| Profile | `/profile` |
 
 1. Open the dashboard to review the sample tasks and current statistics.
 2. Select **New task** (or the mobile add button) to create a task. Use the task menu to edit or delete a task; the status control cycles through available statuses.

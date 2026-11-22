@@ -1,9 +1,11 @@
-function Brand({ className, href = '#overview' }) {
+import { Link } from 'react-router-dom'
+
+function Brand({ className, to = '/' }) {
   return (
-    <a
+    <Link
       aria-label="FocusBoard overview"
       className={className}
-      href={href}
+      to={to}
     >
       <span className="brand__mark" aria-hidden="true">
         <span />
@@ -12,7 +14,7 @@ function Brand({ className, href = '#overview' }) {
         <span />
       </span>
       <span className="brand__name">FocusBoard</span>
-    </a>
+    </Link>
   )
 }
 

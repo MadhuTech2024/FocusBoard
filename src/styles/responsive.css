@@ -253,7 +253,7 @@
     margin-bottom: 18px;
   }
 
-  .task-section__heading h2 {
+  .task-section__heading :is(h1, h2) {
     font-size: 18px;
     letter-spacing: -0.25px;
   }

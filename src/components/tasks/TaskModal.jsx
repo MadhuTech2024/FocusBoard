@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { CalendarDays, ChevronDown, X } from 'lucide-react'
+import { createPortal } from 'react-dom'
 import { taskPriorities, taskStatuses } from '../../utils/taskHelpers.js'
 
 function getFormValues(task, defaultStatus, defaultPriority) {
@@ -29,18 +30,26 @@ function TaskModal({
   const [validationMessage, setValidationMessage] = useState('')
   const isEditing = Boolean(task)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const dialog = dialogRef.current
+    const previousBodyOverflow = document.body.style.overflow
+    const previousDocumentOverflow = document.documentElement.style.overflow
+
     returnFocusRef.current = document.activeElement
+    document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden'
+
     if (dialog && !dialog.open) {
       dialog.showModal()
     }
-    dialog?.focus()
+    titleRef.current?.focus()
 
     return () => {
       if (dialog?.open) {
         dialog.close()
       }
+      document.body.style.overflow = previousBodyOverflow
+      document.documentElement.style.overflow = previousDocumentOverflow
       if (returnFocusRef.current?.isConnected) {
         returnFocusRef.current.focus()
       }
@@ -72,7 +81,7 @@ function TaskModal({
     }
   }
 
-  return (
+  return createPortal(
     <dialog
       aria-labelledby="task-modal-title"
       className="task-dialog task-dialog--task-form"
@@ -111,108 +120,110 @@ function TaskModal({
         </button>
       </header>
       <form className="task-dialog__form" onSubmit={handleSubmit} noValidate>
-        <label className="task-dialog__field">
-          <span>Task Title <span aria-hidden="true">*</span></span>
-          <input
-            aria-describedby={validationMessage ? 'task-title-error' : undefined}
-            aria-invalid={Boolean(validationMessage)}
-            autoComplete="off"
-            maxLength={120}
-            name="title"
-            onChange={handleFieldChange}
-            placeholder="e.g. Update landing page"
-            ref={titleRef}
-            required
-            value={values.title}
-          />
-        </label>
-        {validationMessage && (
-          <p className="task-dialog__error" id="task-title-error" role="alert">
-            {validationMessage}
-          </p>
-        )}
-        <label className="task-dialog__field">
-          <span>Description</span>
-          <textarea
-            maxLength={500}
-            name="description"
-            onChange={handleFieldChange}
-            placeholder="Add notes about this task..."
-            rows={3}
-            value={values.description}
-          />
-        </label>
-        <div className="task-dialog__select-grid">
+        <div className="task-dialog__body">
           <label className="task-dialog__field">
-            <span>Status</span>
-            <span className="task-dialog__select-control">
-              <select
-                name="status"
-                onChange={handleFieldChange}
-                value={values.status}
-              >
-                {taskStatuses.map((status) => (
-                  <option key={status} value={status}>{status}</option>
-                ))}
-              </select>
-              <ChevronDown aria-hidden="true" size={14} />
-            </span>
-          </label>
-          <label className="task-dialog__field">
-            <span>Priority</span>
-            <span className="task-dialog__select-control">
-              <select
-                name="priority"
-                onChange={handleFieldChange}
-                value={values.priority}
-              >
-                {taskPriorities.map((priority) => (
-                  <option key={priority} value={priority}>{priority}</option>
-                ))}
-              </select>
-              <ChevronDown aria-hidden="true" size={14} />
-            </span>
-          </label>
-        </div>
-        <label className="task-dialog__field">
-          <span>Due date</span>
-          <span
-            className={`task-dialog__date-control${values.dueDate ? '' : ' is-empty'}`}
-          >
-            <CalendarDays aria-hidden="true" size={16} />
-            {!values.dueDate && (
-              <span aria-hidden="true" className="task-dialog__date-placeholder">
-                DD / MM / YYYY
-              </span>
-            )}
+            <span>Task Title <span aria-hidden="true">*</span></span>
             <input
-              aria-label="Due date"
-              className={`task-dialog__date-input${values.dueDate ? '' : ' is-empty'}`}
-              name="dueDate"
+              aria-describedby={validationMessage ? 'task-title-error' : undefined}
+              aria-invalid={Boolean(validationMessage)}
+              autoComplete="off"
+              maxLength={120}
+              name="title"
               onChange={handleFieldChange}
-              type="date"
-              value={values.dueDate}
+              placeholder="e.g. Update landing page"
+              ref={titleRef}
+              required
+              value={values.title}
             />
-          </span>
-        </label>
-        <div className="task-dialog__meta-row">
-          <p className="task-dialog__required-note">
-            <span aria-hidden="true">*</span> Required field
-          </p>
-          <details className="task-dialog__category">
-            <summary aria-label={`Edit category, current value ${values.category}`}>
-              Category
-            </summary>
+          </label>
+          {validationMessage && (
+            <p className="task-dialog__error" id="task-title-error" role="alert">
+              {validationMessage}
+            </p>
+          )}
+          <label className="task-dialog__field">
+            <span>Description</span>
+            <textarea
+              maxLength={500}
+              name="description"
+              onChange={handleFieldChange}
+              placeholder="Add notes about this task..."
+              rows={3}
+              value={values.description}
+            />
+          </label>
+          <div className="task-dialog__select-grid">
             <label className="task-dialog__field">
-              <span>Category</span>
-              <input
-                maxLength={60}
-                name="category"
-                onChange={handleFieldChange}
-                value={values.category}
-              />
+              <span>Status</span>
+              <span className="task-dialog__select-control">
+                <select
+                  name="status"
+                  onChange={handleFieldChange}
+                  value={values.status}
+                >
+                  {taskStatuses.map((status) => (
+                    <option key={status} value={status}>{status}</option>
+                  ))}
+                </select>
+                <ChevronDown aria-hidden="true" size={14} />
+              </span>
             </label>
-          </details>
+            <label className="task-dialog__field">
+              <span>Priority</span>
+              <span className="task-dialog__select-control">
+                <select
+                  name="priority"
+                  onChange={handleFieldChange}
+                  value={values.priority}
+                >
+                  {taskPriorities.map((priority) => (
+                    <option key={priority} value={priority}>{priority}</option>
+                  ))}
+                </select>
+                <ChevronDown aria-hidden="true" size={14} />
+              </span>
+            </label>
+          </div>
+          <label className="task-dialog__field">
+            <span>Due date</span>
+            <span
+              className={`task-dialog__date-control${values.dueDate ? '' : ' is-empty'}`}
+            >
+              <CalendarDays aria-hidden="true" size={16} />
+              {!values.dueDate && (
+                <span aria-hidden="true" className="task-dialog__date-placeholder">
+                  DD / MM / YYYY
+                </span>
+              )}
+              <input
+                aria-label="Due date"
+                className={`task-dialog__date-input${values.dueDate ? '' : ' is-empty'}`}
+                name="dueDate"
+                onChange={handleFieldChange}
+                type="date"
+                value={values.dueDate}
+              />
+            </span>
+          </label>
+          <div className="task-dialog__meta-row">
+            <p className="task-dialog__required-note">
+              <span aria-hidden="true">*</span> Required field
+            </p>
+            <details className="task-dialog__category">
+              <summary aria-label={`Edit category, current value ${values.category}`}>
+                Category
+              </summary>
+              <label className="task-dialog__field">
+                <span>Category</span>
+                <input
+                  maxLength={60}
+                  name="category"
+                  onChange={handleFieldChange}
+                  value={values.category}
+                />
+              </label>
+            </details>
+          </div>
         </div>
         <footer className="task-dialog__actions">
           <button
@@ -227,7 +238,8 @@ function TaskModal({
           </button>
         </footer>
       </form>
-    </dialog>
+    </dialog>,
+    document.body,
   )
 }
 

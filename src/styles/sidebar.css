@@ -54,7 +54,8 @@
   color: var(--color-primary-text);
 }
 
-.sidebar__link[aria-current="page"] {
+.sidebar__link[aria-current="page"],
+.sidebar__link.is-active {
   background: var(--color-primary-soft);
   color: var(--color-primary-text);
   font-weight: 600;
@@ -80,6 +81,11 @@
 .sidebar__profile:hover {
   border-color: var(--color-logo-detail);
   background: var(--color-hover-soft);
+}
+
+.sidebar__profile.is-active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
 }
 
 .sidebar__profile-copy {
