@@ -26,7 +26,6 @@ const focusNotes = [
     status: 'next',
     statusLabel: 'NEXT UP',
     taskTitle: 'Design landing page',
-    progress: 62,
   },
   {
     title: 'Small steps, big progress.',
@@ -36,7 +35,6 @@ const focusNotes = [
     status: 'in-progress',
     statusLabel: 'IN PROGRESS',
     taskTitle: 'Fix mobile navigation',
-    progress: 65,
   },
   {
     title: 'Celebrate the wins.',
@@ -46,7 +44,6 @@ const focusNotes = [
     status: 'completed',
     statusLabel: 'COMPLETED',
     taskTitle: 'Onboarding copy',
-    progress: 100,
   },
 ]
 
@@ -215,6 +212,7 @@ function App() {
                     </button>
                   </section>
                   <FocusCarousel
+                    completionPercentage={taskStats.completionPercentage}
                     items={focusNotes}
                     taskCount={taskStats.total}
                   />

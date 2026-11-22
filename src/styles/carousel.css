@@ -127,7 +127,7 @@
   cursor: pointer;
 }
 
-.focus-carousel__controls button:last-child {
+.focus-carousel__controls button.is-white {
   background: var(--color-white);
   color: var(--color-primary-text);
 }

@@ -12,8 +12,14 @@ const statusIcons = {
   completed: Check,
 }
 
-function FocusCarousel({ items = [], previewTask, taskCount = 0 }) {
+function FocusCarousel({
+  items = [],
+  previewTask,
+  taskCount = 0,
+  completionPercentage = 0,
+}) {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [lastClickedArrow, setLastClickedArrow] = useState(null)
   const touchStartX = useRef(null)
 
   if (items.length === 0) {
@@ -59,7 +65,7 @@ function FocusCarousel({ items = [], previewTask, taskCount = 0 }) {
   const slideNumber = String(activeIndex + 1).padStart(2, '0')
   const totalSlides = String(items.length).padStart(2, '0')
   const taskTitle = activeItem.taskTitle ?? previewTask?.title
-  const progress = activeItem.progress ?? 0
+  const progress = completionPercentage
   const StatusIcon = statusIcons[activeItem.status] ?? Check
 
   return (
@@ -112,6 +118,7 @@ function FocusCarousel({ items = [], previewTask, taskCount = 0 }) {
             {items.map((item, index) => (
               <button
                 aria-label={`Show focus note ${index + 1}`}
+                aria-current={activeIndex === index ? 'true' : undefined}
                 aria-pressed={activeIndex === index}
                 className={
                   activeIndex === index
@@ -177,14 +184,22 @@ function FocusCarousel({ items = [], previewTask, taskCount = 0 }) {
       <div className="focus-carousel__controls">
         <button
           aria-label="Previous focus note"
-          onClick={() => showSlide(activeIndex - 1)}
+          className={lastClickedArrow === 'left' ? 'is-white' : ''}
+          onClick={() => {
+            setLastClickedArrow('left')
+            showSlide(activeIndex - 1)
+          }}
           type="button"
         >
           <ChevronLeft aria-hidden="true" size={16} />
         </button>
         <button
           aria-label="Next focus note"
-          onClick={() => showSlide(activeIndex + 1)}
+          className={lastClickedArrow === 'right' ? 'is-white' : ''}
+          onClick={() => {
+            setLastClickedArrow('right')
+            showSlide(activeIndex + 1)
+          }}
           type="button"
         >
           <ChevronRight aria-hidden="true" size={16} />
