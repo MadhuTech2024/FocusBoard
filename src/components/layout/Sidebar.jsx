@@ -1,15 +1,15 @@
 import {
   CalendarDays,
-  CheckSquare,
-  LayoutDashboard,
-  Settings,
+  CircleDot,
+  LayoutGrid,
+  List,
 } from 'lucide-react'
 
 const navigationItems = [
-  { id: 'overview', label: 'Overview', href: '#overview', icon: LayoutDashboard },
-  { id: 'tasks', label: 'My Tasks', href: '#tasks', icon: CheckSquare },
+  { id: 'overview', label: 'Overview', href: '#overview', icon: LayoutGrid },
+  { id: 'tasks', label: 'My tasks', href: '#tasks', icon: List },
   { id: 'calendar', label: 'Calendar', href: '#calendar', icon: CalendarDays },
-  { id: 'settings', label: 'Settings', href: '#settings', icon: Settings },
+  { id: 'settings', label: 'Settings', href: '#settings', icon: CircleDot },
 ]
 
 function Sidebar({ activeItem = 'overview', onNavigate }) {
@@ -24,6 +24,7 @@ function Sidebar({ activeItem = 'overview', onNavigate }) {
         </span>
         <span>FocusBoard</span>
       </a>
+      <p className="sidebar__section-label">WORKSPACE</p>
       <nav className="sidebar__nav" aria-label="Primary navigation">
         {navigationItems.map(({ id, label, href, icon: Icon }) => (
           <a
@@ -33,7 +34,7 @@ function Sidebar({ activeItem = 'overview', onNavigate }) {
             key={id}
             onClick={() => onNavigate?.(id)}
           >
-            <Icon aria-hidden="true" size={19} strokeWidth={1.9} />
+            <Icon aria-hidden="true" size={16} strokeWidth={1.8} />
             <span>{label}</span>
           </a>
         ))}

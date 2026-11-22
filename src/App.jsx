@@ -1,5 +1,5 @@
 
-import { CircleCheck, Clock3, ListTodo, Plus } from 'lucide-react'
+import { ArrowRight, CircleCheck, Clock3, ListTodo, Plus } from 'lucide-react'
 import { useState } from 'react'
 import Header from './components/layout/Header.jsx'
 import MobileNav from './components/layout/MobileNav.jsx'
@@ -28,9 +28,24 @@ const focusNotes = [
 ]
 
 const referenceStats = [
-  { label: 'Total Tasks', value: 12, icon: ListTodo },
-  { label: 'In Progress', value: 5, icon: Clock3 },
-  { label: 'Completed', value: 7, icon: CircleCheck },
+  {
+    label: 'Total tasks',
+    value: 12,
+    description: 'Across all projects',
+    icon: ListTodo,
+  },
+  {
+    label: 'In progress',
+    value: 5,
+    description: 'Keep the momentum',
+    icon: Clock3,
+  },
+  {
+    label: 'Completed',
+    value: 7,
+    description: 'Great work this week',
+    icon: CircleCheck,
+  },
 ]
 
 function App({ onCreateTask }) {
@@ -95,9 +110,18 @@ function App({ onCreateTask }) {
                   <h2 id="my-tasks-title">My Tasks</h2>
                   <p>Keep track of what needs your attention.</p>
                 </div>
-                <span className="task-count">
-                  {filteredTasks.length} {filteredTasks.length === 1 ? 'task' : 'tasks'}
-                </span>
+                <button
+                  className="task-section__view-all"
+                  onClick={() => {
+                    setActiveFilter('all')
+                    setSearchQuery('')
+                    setPriority('all')
+                  }}
+                  type="button"
+                >
+                  View all Tasks
+                  <ArrowRight aria-hidden="true" size={14} />
+                </button>
               </div>
               <TaskFilters
                 activeFilter={activeFilter}

@@ -1,8 +1,8 @@
 import { Search } from 'lucide-react'
 
 const statusFilters = [
-  { label: 'All Tasks', value: 'all' },
-  { label: 'In Progress', value: 'in-progress' },
+  { label: 'All tasks', count: '12', value: 'all' },
+  { label: 'In progress', value: 'in-progress' },
   { label: 'Completed', value: 'completed' },
 ]
 
@@ -21,7 +21,7 @@ function TaskFilters({
         role="group"
         aria-label="Task status filters"
       >
-        {statusFilters.map(({ label, value }) => (
+        {statusFilters.map(({ label, count, value }) => (
           <button
             aria-pressed={activeFilter === value}
             className={activeFilter === value ? 'is-active' : undefined}
@@ -29,7 +29,8 @@ function TaskFilters({
             onClick={() => onFilterChange?.(value)}
             type="button"
           >
-            {label}
+            <span>{label}</span>
+            {count && <span className="task-filters__count">{count}</span>}
           </button>
         ))}
       </div>
