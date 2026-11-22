@@ -12,5 +12,6 @@
 @import './styles/task-dialog.css';
 @import './styles/calendar.css';
 @import '/src/styles/settings.css';
+@import './styles/profile.css';
 @import './styles/responsive.css';
 @import './styles/global.css';

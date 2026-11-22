@@ -1,5 +1,6 @@
 import { ChevronDown } from 'lucide-react'
 import Brand from '../common/Brand.jsx'
+import ProfileAvatar from '../common/ProfileAvatar.jsx'
 
 const breadcrumbLabels = {
   overview: 'Overview',
@@ -8,7 +9,11 @@ const breadcrumbLabels = {
   settings: 'Settings',
 }
 
-function Header({ activeItem = 'overview' }) {
+function Header({
+  activeItem = 'overview',
+  onOpenProfile,
+  profile,
+}) {
   return (
     <header className="topbar">
       <Brand className="topbar__brand" />
@@ -20,16 +25,23 @@ function Header({ activeItem = 'overview' }) {
           <li aria-current="page">{breadcrumbLabels[activeItem] ?? 'Overview'}</li>
         </ol>
       </nav>
-      <div className="profile-area" role="group" aria-label="User profile">
-        <span className="profile-area__avatar" aria-hidden="true">
-          JD
-        </span>
+      <button
+        aria-label={`Open profile settings for ${profile.name}`}
+        className="profile-area"
+        onClick={onOpenProfile}
+        type="button"
+      >
+        <ProfileAvatar
+          avatar={profile.avatar}
+          className="profile-area__avatar"
+          name={profile.name}
+        />
         <ChevronDown
           className="profile-area__chevron"
           aria-hidden="true"
           size={15}
         />
-      </div>
+      </button>
     </header>
   )
 }

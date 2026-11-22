@@ -42,9 +42,14 @@
 
 .profile-area {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   gap: clamp(5px, 0.49vw, 7px);
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: var(--color-muted);
+  cursor: pointer;
 }
 
 .profile-area__avatar {
@@ -63,4 +68,8 @@
 .profile-area__chevron {
   width: clamp(12px, 1.04vw, 15px);
   color: var(--color-muted);
+}
+
+.profile-area:hover .profile-area__chevron {
+  color: var(--color-primary-text);
 }

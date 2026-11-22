@@ -11,6 +11,7 @@ function ConfirmDialog({
 }) {
   const dialogRef = useRef(null)
   const cancelRef = useRef(null)
+  const returnFocusRef = useRef(null)
 
   useEffect(() => {
     if (!open) {
@@ -18,6 +19,7 @@ function ConfirmDialog({
     }
 
     const dialog = dialogRef.current
+    returnFocusRef.current = document.activeElement
     if (dialog && !dialog.open) {
       dialog.showModal()
     }
@@ -26,6 +28,9 @@ function ConfirmDialog({
     return () => {
       if (dialog?.open) {
         dialog.close()
+      }
+      if (returnFocusRef.current?.isConnected) {
+        returnFocusRef.current.focus()
       }
     }
   }, [open])
@@ -39,6 +44,12 @@ function ConfirmDialog({
       aria-describedby={message ? 'confirm-message' : undefined}
       aria-labelledby="confirm-title"
       className="task-dialog task-dialog--confirmation"
+      onKeyDown={(event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault()
+          onCancel()
+        }
+      }}
       onCancel={(event) => {
         event.preventDefault()
         onCancel()

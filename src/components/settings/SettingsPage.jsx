@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   AlertCircle,
   Database,
@@ -11,6 +11,7 @@ import {
   Upload,
 } from 'lucide-react'
 import ConfirmDialog from '../common/ConfirmDialog.jsx'
+import ProfileSettings from './ProfileSettings.jsx'
 import initialTasks from '../../data/initialTasks.js'
 import { parseTaskBackup } from '../../utils/taskBackup.js'
 import { taskPriorities, taskStatuses } from '../../utils/taskHelpers.js'
@@ -24,13 +25,26 @@ function SettingsPage({
   preferences,
   preferencesError,
   storageError,
+  profile,
+  profileError,
+  onSaveProfile,
+  focusProfile,
+  onProfileFocusHandled,
   onPreferencesChange,
   onReplaceTasks,
   onResetTasks,
 }) {
   const fileInputRef = useRef(null)
+  const profileSectionRef = useRef(null)
   const [pendingAction, setPendingAction] = useState(null)
   const [feedback, setFeedback] = useState(null)
+
+  useEffect(() => {
+    if (focusProfile) {
+      profileSectionRef.current?.scrollIntoView({ block: 'start' })
+      onProfileFocusHandled?.()
+    }
+  }, [focusProfile, onProfileFocusHandled])
 
   function updatePreference(updates) {
     const saved = onPreferencesChange(updates)
@@ -135,6 +149,19 @@ function SettingsPage({
           <h1 id="settings-title">Settings</h1>
           <p>Personalize FocusBoard and manage your task data.</p>
         </header>
+
+        <section
+          aria-labelledby="profile-settings-title"
+          className="settings-card"
+          id="profile-settings"
+          ref={profileSectionRef}
+        >
+          <ProfileSettings
+            onSaveProfile={onSaveProfile}
+            profile={profile}
+            profileError={profileError}
+          />
+        </section>
 
         {storageError && (
           <div className="settings-page__error" role="alert">

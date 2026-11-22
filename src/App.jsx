@@ -13,6 +13,7 @@ import TaskFilters from './components/tasks/TaskFilters.jsx'
 import TaskList from './components/tasks/TaskList.jsx'
 import TaskModal from './components/tasks/TaskModal.jsx'
 import usePreferences from './hooks/usePreferences.js'
+import useProfile from './hooks/useProfile.js'
 import useTasks from './hooks/useTasks.js'
 import { filterTasks, getTaskStats } from './utils/taskHelpers.js'
 
@@ -63,7 +64,9 @@ function App() {
   const [taskDialogOpen, setTaskDialogOpen] = useState(false)
   const [editingTask, setEditingTask] = useState(null)
   const [taskToDelete, setTaskToDelete] = useState(null)
+  const [focusProfile, setFocusProfile] = useState(false)
   const { preferences, preferencesError, updatePreferences } = usePreferences()
+  const { profile, profileError, saveProfile } = useProfile()
   const {
     tasks,
     addTask,
@@ -112,6 +115,14 @@ function App() {
     setTaskDialogOpen(true)
   }
 
+  function openProfileSettings() {
+    setActiveNavItem('settings')
+    setFocusProfile(true)
+    if (window.location.hash !== '#settings') {
+      window.location.hash = '#settings'
+    }
+  }
+
   function openEditTask(task) {
     setEditingTask(task)
     setTaskDialogOpen(true)
@@ -149,9 +160,18 @@ function App() {
 
   return (
     <div className="app-shell">
-      <Sidebar activeItem={activeNavItem} onNavigate={setActiveNavItem} />
+      <Sidebar
+        activeItem={activeNavItem}
+        onNavigate={setActiveNavItem}
+        onOpenProfile={openProfileSettings}
+        profile={profile}
+      />
       <div className="main-shell">
-        <Header activeItem={activeNavItem} />
+        <Header
+          activeItem={activeNavItem}
+          onOpenProfile={openProfileSettings}
+          profile={profile}
+        />
         {isCalendarPage ? (
           <CalendarPage
             onEditTask={openEditTask}
@@ -160,9 +180,14 @@ function App() {
           />
         ) : isSettingsPage ? (
           <SettingsPage
+            focusProfile={focusProfile}
             onPreferencesChange={updatePreferences}
+            onProfileFocusHandled={() => setFocusProfile(false)}
+            onSaveProfile={saveProfile}
             onReplaceTasks={replaceTasks}
             onResetTasks={resetTasks}
+            profile={profile}
+            profileError={profileError}
             preferences={preferences}
             preferencesError={preferencesError}
             storageError={storageError}

@@ -5,6 +5,7 @@ import {
   List,
 } from 'lucide-react'
 import Brand from '../common/Brand.jsx'
+import ProfileAvatar from '../common/ProfileAvatar.jsx'
 
 const navigationItems = [
   { id: 'overview', label: 'Overview', href: '#overview', icon: LayoutGrid },
@@ -13,7 +14,12 @@ const navigationItems = [
   { id: 'settings', label: 'Settings', href: '#settings', icon: CircleDot },
 ]
 
-function Sidebar({ activeItem = 'overview', onNavigate }) {
+function Sidebar({
+  activeItem = 'overview',
+  onNavigate,
+  onOpenProfile,
+  profile,
+}) {
   return (
     <aside className="sidebar">
       <Brand className="sidebar__brand" />
@@ -32,6 +38,24 @@ function Sidebar({ activeItem = 'overview', onNavigate }) {
           </a>
         ))}
       </nav>
+      <button
+        aria-label={`Open profile settings for ${profile.name}`}
+        className="sidebar__profile"
+        onClick={onOpenProfile}
+        type="button"
+      >
+        <ProfileAvatar
+          avatar={profile.avatar}
+          className="sidebar__profile-avatar"
+          name={profile.name}
+        />
+        <span className="sidebar__profile-copy">
+          <span className="sidebar__profile-name">{profile.name}</span>
+          <span className="sidebar__profile-subtitle">
+            {profile.email || 'Local profile'}
+          </span>
+        </span>
+      </button>
     </aside>
   )
 }
