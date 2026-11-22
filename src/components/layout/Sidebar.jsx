@@ -1,19 +1,39 @@
-import { BarChart3, CheckSquare, LayoutDashboard, Settings } from 'lucide-react'
+import {
+  CalendarDays,
+  CheckSquare,
+  LayoutDashboard,
+  Settings,
+} from 'lucide-react'
 
 const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard },
-  { label: 'Tasks', icon: CheckSquare },
-  { label: 'Reports', icon: BarChart3 },
-  { label: 'Settings', icon: Settings },
+  { id: 'overview', label: 'Overview', href: '#overview', icon: LayoutDashboard },
+  { id: 'tasks', label: 'My Tasks', href: '#tasks', icon: CheckSquare },
+  { id: 'calendar', label: 'Calendar', href: '#calendar', icon: CalendarDays },
+  { id: 'settings', label: 'Settings', href: '#settings', icon: Settings },
 ]
 
-function Sidebar() {
+function Sidebar({ activeItem = 'overview', onNavigate }) {
   return (
-    <aside aria-label="Main navigation">
-      <nav>
-        {navigationItems.map(({ label, icon: Icon }) => (
-          <a href="#" key={label}>
-            <Icon aria-hidden="true" size={18} />
+    <aside className="sidebar">
+      <a className="sidebar__brand" href="#overview" aria-label="FocusBoard overview">
+        <span className="sidebar__brand-mark" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
+        </span>
+        <span>FocusBoard</span>
+      </a>
+      <nav className="sidebar__nav" aria-label="Primary navigation">
+        {navigationItems.map(({ id, label, href, icon: Icon }) => (
+          <a
+            aria-current={activeItem === id ? 'page' : undefined}
+            className="sidebar__link"
+            href={href}
+            key={id}
+            onClick={() => onNavigate?.(id)}
+          >
+            <Icon aria-hidden="true" size={19} strokeWidth={1.9} />
             <span>{label}</span>
           </a>
         ))}

@@ -1,20 +1,26 @@
-import { Bell, Search } from 'lucide-react'
+import { ChevronDown, UserRound } from 'lucide-react'
 
-function Header({ onSearch }) {
+function Header() {
   return (
-    <header>
-      <label>
-        <Search aria-hidden="true" size={18} />
-        <span className="sr-only">Search tasks</span>
-        <input
-          type="search"
-          placeholder="Search tasks"
-          onChange={(event) => onSearch?.(event.target.value)}
+    <header className="topbar">
+      <nav className="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li>
+            <a href="#workspace">Workspace</a>
+          </li>
+          <li aria-current="page">Overview</li>
+        </ol>
+      </nav>
+      <div className="profile-area" role="group" aria-label="User profile">
+        <span className="profile-area__avatar">
+          <UserRound aria-hidden="true" size={18} />
+        </span>
+        <ChevronDown
+          className="profile-area__chevron"
+          aria-hidden="true"
+          size={15}
         />
-      </label>
-      <button type="button" aria-label="Notifications">
-        <Bell aria-hidden="true" size={18} />
-      </button>
+      </div>
     </header>
   )
 }

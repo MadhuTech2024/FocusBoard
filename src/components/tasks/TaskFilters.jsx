@@ -1,17 +1,61 @@
-function TaskFilters({ filters = {}, onChange }) {
-  function updateFilter(event) {
-    onChange?.({ ...filters, status: event.target.value })
-  }
+import { Search } from 'lucide-react'
 
+const statusFilters = [
+  { label: 'All Tasks', value: 'all' },
+  { label: 'In Progress', value: 'in-progress' },
+  { label: 'Completed', value: 'completed' },
+]
+
+function TaskFilters({
+  activeFilter = 'all',
+  onFilterChange,
+  searchQuery = '',
+  onSearchChange,
+  priority = 'all',
+  onPriorityChange,
+}) {
   return (
-    <label>
-      <span>Filter tasks</span>
-      <select value={filters.status ?? 'all'} onChange={updateFilter}>
-        <option value="all">All tasks</option>
-        <option value="active">Active</option>
-        <option value="completed">Completed</option>
-      </select>
-    </label>
+    <div className="task-filters">
+      <div
+        className="task-filters__tabs"
+        role="group"
+        aria-label="Task status filters"
+      >
+        {statusFilters.map(({ label, value }) => (
+          <button
+            aria-pressed={activeFilter === value}
+            className={activeFilter === value ? 'is-active' : undefined}
+            key={value}
+            onClick={() => onFilterChange?.(value)}
+            type="button"
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <label className="task-filters__search">
+        <Search aria-hidden="true" size={17} />
+        <span className="sr-only">Find a task</span>
+        <input
+          onChange={(event) => onSearchChange?.(event.target.value)}
+          placeholder="Find a task..."
+          type="search"
+          value={searchQuery}
+        />
+      </label>
+      <label className="task-filters__priority">
+        <span className="sr-only">Filter by priority</span>
+        <select
+          onChange={(event) => onPriorityChange?.(event.target.value)}
+          value={priority}
+        >
+          <option value="all">Priority: All</option>
+          <option value="High">Priority: High</option>
+          <option value="Medium">Priority: Medium</option>
+          <option value="Low">Priority: Low</option>
+        </select>
+      </label>
+    </div>
   )
 }
 

@@ -1,20 +1,15 @@
 import TaskCard from './TaskCard.jsx'
 
-function TaskList({ tasks = [], onToggleTask, onEditTask, onDeleteTask }) {
+function TaskList({ tasks = [] }) {
   if (tasks.length === 0) {
-    return <p>No tasks to show.</p>
+    return <p className="task-list__empty">No tasks match these filters.</p>
   }
 
   return (
-    <ul>
+    <ul className="task-list">
       {tasks.map((task) => (
         <li key={task.id}>
-          <TaskCard
-            task={task}
-            onToggle={onToggleTask}
-            onEdit={onEditTask}
-            onDelete={onDeleteTask}
-          />
+          <TaskCard task={task} />
         </li>
       ))}
     </ul>

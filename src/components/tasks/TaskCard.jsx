@@ -1,30 +1,47 @@
-import { Check, Pencil, Trash2 } from 'lucide-react'
+import { CalendarDays, Check, Circle, Flag, MoreHorizontal } from 'lucide-react'
 
-function TaskCard({ task, onToggle, onEdit, onDelete }) {
+function TaskCard({ task }) {
   return (
-    <article>
-      <button
-        type="button"
-        aria-label={task.completed ? 'Mark task incomplete' : 'Complete task'}
-        aria-pressed={task.completed}
-        onClick={() => onToggle?.(task.id)}
-      >
-        <Check aria-hidden="true" size={16} />
-      </button>
-      <div>
-        <h3>{task.title}</h3>
-        {task.description && <p>{task.description}</p>}
+    <article className="task-card">
+      <div className="task-card__main">
+        <span
+          aria-label={task.completed ? 'Completed' : 'In progress'}
+          className={
+            task.completed
+              ? 'task-card__status is-completed'
+              : 'task-card__status'
+          }
+          role="img"
+        >
+          {task.completed ? (
+            <Check aria-hidden="true" size={17} />
+          ) : (
+            <Circle aria-hidden="true" size={19} />
+          )}
+        </span>
+        <div className="task-card__text">
+          <h3>{task.title}</h3>
+          <p>{task.description}</p>
+        </div>
       </div>
-      <button type="button" aria-label="Edit task" onClick={() => onEdit?.(task)}>
-        <Pencil aria-hidden="true" size={16} />
-      </button>
-      <button
-        type="button"
-        aria-label="Delete task"
-        onClick={() => onDelete?.(task.id)}
-      >
-        <Trash2 aria-hidden="true" size={16} />
-      </button>
+      <div className="task-card__meta">
+        <span className="task-category">{task.category}</span>
+        <span className={`task-priority task-priority--${task.priority.toLowerCase()}`}>
+          <Flag aria-hidden="true" size={13} />
+          {task.priority}
+        </span>
+        <span className="task-due-date">
+          <CalendarDays aria-hidden="true" size={14} />
+          {task.dueDate}
+        </span>
+        <button
+          aria-label={`More actions for ${task.title}`}
+          className="task-card__more"
+          type="button"
+        >
+          <MoreHorizontal aria-hidden="true" size={19} />
+        </button>
+      </div>
     </article>
   )
 }
