@@ -41,6 +41,16 @@ function FocusCarousel({ items = [], previewTask, taskCount = 0 }) {
     touchStartX.current = null
   }
 
+  function handleKeyDown(event) {
+    if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      showSlide(activeIndex + 1)
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      showSlide(activeIndex - 1)
+    }
+  }
+
   const activeItem = items[activeIndex]
   const mobileSubtitle =
     activeItem.status === 'next'
@@ -56,9 +66,17 @@ function FocusCarousel({ items = [], previewTask, taskCount = 0 }) {
     <section
       className="focus-carousel"
       aria-label="Focus Notes"
+      aria-describedby="focus-carousel-instructions"
+      aria-keyshortcuts="ArrowLeft ArrowRight"
+      aria-roledescription="carousel"
       onTouchEnd={handleTouchEnd}
       onTouchStart={handleTouchStart}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
     >
+      <span className="sr-only" id="focus-carousel-instructions">
+        Use the left and right arrow keys to change slides.
+      </span>
       <div className="focus-carousel__content">
         <div className="focus-carousel__topline">
           <p className="focus-carousel__label focus-carousel__label--desktop">

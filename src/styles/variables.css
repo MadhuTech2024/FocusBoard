@@ -1,0 +1,82 @@
+:root {
+  --font-family-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  --color-primary: #6555f5;
+  --color-primary-hover: #5848e8;
+  --color-primary-text: #5c4bd6;
+  --color-primary-soft: #f0edff;
+  --color-primary-tint: #f2efff;
+  --color-navy: #17243b;
+  --color-muted: #64748b;
+  --color-background: #f5f7fb;
+  --color-white: #ffffff;
+  --color-surface: #ffffff;
+  --color-border: #e8ebf1;
+  --color-border-strong: #e5e9f0;
+  --color-border-header: #e4ebf6;
+  --color-hover-soft: #f8f7ff;
+  --color-avatar: #e8e3ff;
+  --color-logo-detail: #c3bdff;
+
+  --color-blue-soft: #eaf8ff;
+  --color-blue-text: #0073b9;
+  --color-success: #146b49;
+  --color-success-soft: #e5f7ef;
+  --color-success-stat-soft: #e8f8f0;
+  --color-priority-high: #934900;
+  --color-priority-high-soft: #fff6e9;
+  --color-priority-high-border: #f3bf75;
+  --color-priority-medium: #006b61;
+  --color-priority-medium-soft: #eaf8f5;
+  --color-priority-medium-border: #9bd6cc;
+  --color-priority-low: #1e6b38;
+  --color-priority-low-soft: #edf8ef;
+  --color-priority-low-border: #a4d8b2;
+  --color-danger-action: var(--color-priority-high);
+  --color-danger-action-hover: #763a00;
+
+  --color-dialog-backdrop: rgb(23 36 59 / 42%);
+  --color-task-modal-backdrop: rgb(245 247 251 / 88%);
+  --shadow-dialog: 0 20px 60px rgb(23 36 59 / 22%);
+  --shadow-dialog-form: 0 12px 30px rgb(23 36 59 / 8%);
+  --shadow-menu: 0 8px 24px rgb(23 36 59 / 14%);
+
+  --color-focus-start: #6c5cf0;
+  --color-focus-middle: #6656f3;
+  --color-focus-end: #5e52e8;
+  --color-focus-subtitle: rgb(255 255 255 / 98%);
+  --color-focus-indicator: rgb(255 255 255 / 70%);
+  --color-focus-control: rgb(255 255 255 / 17%);
+  --color-focus-backdrop: rgb(211 204 255 / 48%);
+  --color-focus-track: #ebe8ff;
+  --color-focus-progress-track: rgb(255 255 255 / 28%);
+  --color-focus-status-bg: #e8f7ed;
+  --color-focus-status: #269653;
+
+  --color-selection: rgb(101 85 245 / 18%);
+  --shadow-focus-preview: 0 4px 10px rgb(45 32 133 / 12%);
+  --shadow-focus-soft: 0 0 0 2px var(--color-selection);
+  --shadow-focus-ring: 0 0 0 3px var(--color-selection);
+  --transition-focus: 180ms ease;
+}

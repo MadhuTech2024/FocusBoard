@@ -1,0 +1,65 @@
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+:root {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-navy);
+  background: var(--color-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: var(--font-weight-normal);
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--color-background);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  color: inherit;
+}
+
+:is(button, a, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus-ring);
+}
+
+::selection {
+  color: var(--color-navy);
+  background: var(--color-selection);
+}

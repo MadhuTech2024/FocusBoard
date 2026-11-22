@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+
 function ConfirmDialog({
   open,
   title = 'Are you sure?',
@@ -7,23 +9,73 @@ function ConfirmDialog({
   onConfirm,
   onCancel,
 }) {
+  const dialogRef = useRef(null)
+  const cancelRef = useRef(null)
+
+  useEffect(() => {
+    if (!open) {
+      return undefined
+    }
+
+    const dialog = dialogRef.current
+    if (dialog && !dialog.open) {
+      dialog.showModal()
+    }
+    cancelRef.current?.focus()
+
+    return () => {
+      if (dialog?.open) {
+        dialog.close()
+      }
+    }
+  }, [open])
+
   if (!open) {
     return null
   }
 
   return (
-    <div role="presentation">
-      <section role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
+    <dialog
+      aria-describedby={message ? 'confirm-message' : undefined}
+      aria-labelledby="confirm-title"
+      className="task-dialog task-dialog--confirmation"
+      onCancel={(event) => {
+        event.preventDefault()
+        onCancel()
+      }}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) {
+          onCancel()
+        }
+      }}
+      ref={dialogRef}
+    >
+      <div className="task-dialog__header">
         <h2 id="confirm-title">{title}</h2>
-        {message && <p>{message}</p>}
-        <button type="button" onClick={onCancel}>
+      </div>
+      {message && (
+        <p className="task-dialog__confirmation-message" id="confirm-message">
+          {message}
+        </p>
+      )}
+      <footer className="task-dialog__actions">
+        <button
+          className="task-dialog__cancel"
+          onClick={onCancel}
+          ref={cancelRef}
+          type="button"
+        >
           {cancelLabel}
         </button>
-        <button type="button" onClick={onConfirm}>
+        <button
+          className="task-dialog__delete"
+          onClick={onConfirm}
+          type="button"
+        >
           {confirmLabel}
         </button>
-      </section>
-    </div>
+      </footer>
+    </dialog>
   )
 }
 

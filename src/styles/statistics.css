@@ -1,0 +1,88 @@
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.53vw, 22px);
+  margin-bottom: clamp(24px, calc(4.05vw - 12.3px), 46px);
+}
+
+.stats-grid__heading {
+  display: none;
+}
+
+.stat-card {
+  --stat-icon-size: clamp(27px, 2.57vw, 37px);
+  display: grid;
+  min-width: 0;
+  height: clamp(79px, 8.75vw, 126px);
+  grid-template-columns: var(--stat-icon-size) minmax(0, 1fr);
+  grid-template-rows: clamp(29px, 2.92vw, 42px) clamp(26px, 2.36vw, 34px);
+  align-content: center;
+  align-items: center;
+  column-gap: clamp(10px, 0.97vw, 14px);
+  padding: clamp(12px, 1.4vw, 20px);
+  border: 1px solid var(--color-border);
+  border-radius: clamp(11px, 1.11vw, 16px);
+  background: var(--color-surface);
+}
+
+.stat-card__icon {
+  display: grid;
+  width: var(--stat-icon-size);
+  height: var(--stat-icon-size);
+  grid-column: 1;
+  grid-row: 1;
+  place-items: center;
+  border-radius: clamp(7px, 0.63vw, 9px);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-text);
+}
+
+.stat-card:nth-of-type(2) .stat-card__icon {
+  background: var(--color-blue-soft);
+  color: var(--color-blue-text);
+}
+
+.stat-card:nth-of-type(3) .stat-card__icon {
+  background: var(--color-success-stat-soft);
+  color: var(--color-success);
+}
+
+.stat-card__content {
+  display: contents;
+}
+
+.stat-card__label {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-muted);
+  font-size: clamp(8px, 0.97vw, 14px);
+  font-weight: 550;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stat-card__value {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+  margin: 0;
+  color: var(--color-navy);
+  font-size: clamp(18px, 2.08vw, 30px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-card__description {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: center;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: clamp(7px, 0.83vw, 12px);
+  line-height: 1.2;
+  white-space: nowrap;
+}

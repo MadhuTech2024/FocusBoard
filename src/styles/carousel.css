@@ -1,0 +1,244 @@
+.focus-carousel {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: clamp(95px, 10.55vw, 152px);
+  grid-template-columns: minmax(0, 1fr) clamp(221px, 24.65vw, 355px);
+  align-items: center;
+  gap: clamp(12px, 1.4vw, 20px);
+  margin-bottom: clamp(15px, calc(2.03vw - 3.2px), 26px);
+  padding: clamp(11px, 1.4vw, 20px) clamp(24px, 2.65vw, 38px);
+  overflow: hidden;
+  border-radius: clamp(12px, 1.4vw, 20px);
+  background: linear-gradient(
+    90deg,
+    var(--color-focus-start) 0%,
+    var(--color-focus-middle) 52%,
+    var(--color-focus-end) 100%
+  );
+  color: var(--color-white);
+  touch-action: pan-y;
+}
+
+.focus-carousel__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+}
+
+.focus-carousel__topline {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 0.7vw, 10px);
+}
+
+.focus-carousel__label,
+.focus-carousel__count {
+  margin: 0;
+  color: var(--color-white);
+  font-size: clamp(6px, 0.56vw, 8px);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.focus-carousel__label--mobile {
+  display: none;
+}
+
+.focus-carousel__count {
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.focus-carousel__message {
+  margin: auto 0;
+}
+
+.focus-carousel__message h2 {
+  margin: 0;
+  color: var(--color-white);
+  font-size: clamp(18px, 2.22vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.45px;
+  line-height: 1.15;
+}
+
+.focus-carousel__message p {
+  margin: clamp(2px, 0.28vw, 4px) 0 0;
+  color: var(--color-focus-subtitle);
+  font-size: clamp(8px, 0.83vw, 12px);
+  line-height: 1.3;
+}
+
+.focus-carousel__text--mobile {
+  display: none;
+}
+
+.focus-carousel__footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.focus-carousel__indicators {
+  display: flex;
+  align-items: center;
+  gap: clamp(7px, 0.63vw, 9px);
+}
+
+.focus-carousel__indicator {
+  width: clamp(28px, 3.33vw, 48px);
+  height: clamp(2px, 0.28vw, 4px);
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-focus-indicator);
+  cursor: pointer;
+}
+
+.focus-carousel__indicator.is-active {
+  background: var(--color-white);
+}
+
+.focus-carousel__controls {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  right: clamp(20px, 2.36vw, 34px);
+  display: flex;
+  gap: clamp(8px, 0.63vw, 9px);
+  transform: translateY(-50%);
+}
+
+.focus-carousel__controls button {
+  display: grid;
+  width: clamp(24px, 2.64vw, 38px);
+  height: clamp(24px, 2.64vw, 38px);
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-focus-control);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.focus-carousel__controls button:last-child {
+  background: var(--color-white);
+  color: var(--color-primary-text);
+}
+
+.focus-carousel__controls button:hover {
+  filter: brightness(1.05);
+}
+
+.focus-preview {
+  position: relative;
+  z-index: 2;
+  width: clamp(120px, 13.34vw, 192px);
+  aspect-ratio: 160 / 87;
+  justify-self: start;
+  align-self: center;
+}
+
+.focus-preview__backdrop {
+  position: absolute;
+  top: 8%;
+  left: -5%;
+  width: 100%;
+  height: 100%;
+  border-radius: clamp(10px, 0.9vw, 13px);
+  background: var(--color-focus-backdrop);
+  transform: rotate(-3deg);
+}
+
+.focus-preview__card {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  padding: clamp(7px, 0.83vw, 12px);
+  border-radius: clamp(10px, 0.9vw, 13px);
+  background: var(--color-white);
+  box-shadow: var(--shadow-focus-preview);
+  color: var(--color-navy);
+  transform: rotate(3deg);
+}
+
+.focus-preview__topline {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 0.42vw, 6px);
+}
+
+.focus-preview__status-icon {
+  display: grid;
+  width: clamp(13px, 1.18vw, 17px);
+  height: clamp(13px, 1.18vw, 17px);
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 5px;
+  background: var(--color-focus-status-bg);
+  color: var(--color-focus-status);
+}
+
+.focus-preview__status-icon--in-progress {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-text);
+}
+
+.focus-preview__status-label {
+  color: var(--color-muted);
+  font-size: clamp(5px, 0.49vw, 7px);
+  font-weight: 650;
+  letter-spacing: 0.45px;
+}
+
+.focus-preview__card h3 {
+  margin: clamp(5px, 0.56vw, 8px) 0 0;
+  overflow: hidden;
+  color: var(--color-navy);
+  font-size: clamp(7px, 0.7vw, 10px);
+  font-weight: 680;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.focus-preview__progress-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 0.42vw, 6px);
+  margin-top: auto;
+}
+
+.focus-preview__progress-track {
+  height: clamp(2px, 0.21vw, 3px);
+  flex: 1 1 auto;
+  overflow: hidden;
+  border-radius: 99px;
+  background: var(--color-focus-track);
+}
+
+.focus-preview__progress-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-primary-text);
+}
+
+.focus-preview__percentage {
+  color: var(--color-primary-text);
+  font-size: clamp(6px, 0.56vw, 8px);
+  font-weight: 650;
+  line-height: 1;
+}
+
+.focus-carousel__mobile-progress {
+  display: none;
+}

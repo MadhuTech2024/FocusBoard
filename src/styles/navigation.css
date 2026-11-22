@@ -1,0 +1,12 @@
+.sidebar__link,
+.mobile-nav__link {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
+}
+
+.mobile-nav {
+  display: none;
+}

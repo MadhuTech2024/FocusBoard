@@ -1,0 +1,50 @@
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-primary: #8275ff;
+  --color-primary-hover: #9389ff;
+  --color-primary-text: #b7afff;
+  --color-primary-soft: #302a59;
+  --color-primary-tint: #282347;
+  --color-navy: #e6ecf5;
+  --color-muted: #a4afc1;
+  --color-background: #111827;
+  --color-white: #192333;
+  --color-surface: #1b2636;
+  --color-border: #303c4e;
+  --color-border-strong: #3a4659;
+  --color-border-header: #303c4e;
+  --color-hover-soft: #222e41;
+  --color-avatar: #332d60;
+  --color-logo-detail: #8e83e6;
+
+  --color-blue-soft: #18374c;
+  --color-blue-text: #84d4ff;
+  --color-success: #86ddb4;
+  --color-success-soft: #153a2d;
+  --color-success-stat-soft: #183d30;
+  --color-priority-high: #ffc078;
+  --color-priority-high-soft: #3e2d1d;
+  --color-priority-high-border: #795b39;
+  --color-priority-medium: #78d8c8;
+  --color-priority-medium-soft: #173a36;
+  --color-priority-medium-border: #37665f;
+  --color-priority-low: #8fdda1;
+  --color-priority-low-soft: #1d3928;
+  --color-priority-low-border: #416d4e;
+  --color-danger-action: #934900;
+  --color-danger-action-hover: #763a00;
+
+  --color-dialog-backdrop: rgb(5 9 16 / 68%);
+  --color-task-modal-backdrop: rgb(12 17 26 / 88%);
+  --shadow-dialog: 0 20px 60px rgb(0 0 0 / 48%);
+  --shadow-dialog-form: 0 12px 30px rgb(0 0 0 / 40%);
+  --shadow-menu: 0 8px 24px rgb(0 0 0 / 36%);
+
+  --color-focus-backdrop: rgb(205 199 255 / 28%);
+  --color-focus-track: #3a355d;
+  --color-focus-status-bg: #173c2c;
+  --color-focus-status: #8cdeb0;
+  --color-selection: rgb(130 117 255 / 30%);
+  --shadow-focus-preview: 0 4px 10px rgb(0 0 0 / 28%);
+}

@@ -1,7 +1,14 @@
 import { ChevronDown } from 'lucide-react'
 import Brand from '../common/Brand.jsx'
 
-function Header() {
+const breadcrumbLabels = {
+  overview: 'Overview',
+  tasks: 'My tasks',
+  calendar: 'Calendar',
+  settings: 'Settings',
+}
+
+function Header({ activeItem = 'overview' }) {
   return (
     <header className="topbar">
       <Brand className="topbar__brand" />
@@ -10,7 +17,7 @@ function Header() {
           <li>
             <a href="#workspace">Workspace</a>
           </li>
-          <li aria-current="page">Overview</li>
+          <li aria-current="page">{breadcrumbLabels[activeItem] ?? 'Overview'}</li>
         </ol>
       </nav>
       <div className="profile-area" role="group" aria-label="User profile">

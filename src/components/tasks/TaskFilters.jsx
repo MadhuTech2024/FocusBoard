@@ -2,8 +2,8 @@ import { Search } from 'lucide-react'
 
 const statusFilters = [
   { label: 'All tasks', mobileLabel: 'All', value: 'all' },
-  { label: 'In progress', value: 'in-progress' },
-  { label: 'Completed', value: 'completed' },
+  { label: 'In progress', mobileLabel: 'In progress', value: 'in-progress' },
+  { label: 'Completed', mobileLabel: 'Completed', value: 'completed' },
 ]
 
 function TaskFilters({
@@ -40,9 +40,8 @@ function TaskFilters({
           </button>
         ))}
       </div>
-      <label className="task-filters__search">
+      <div className="task-filters__search">
         <Search aria-hidden="true" size={17} />
-        <span className="sr-only">Find a task</span>
         <input
           aria-label="Find a task"
           className="task-filters__input--desktop"
@@ -59,7 +58,7 @@ function TaskFilters({
           type="search"
           value={searchQuery}
         />
-      </label>
+      </div>
       <label className="task-filters__priority">
         <span className="sr-only">Filter by priority</span>
         <select
